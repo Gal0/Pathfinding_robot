@@ -1,4 +1,4 @@
-#Date 27.07.2019
+#Date: 27.07.2019
 #D*-Algorithm by Howie Choset (with variations)
 
 from tkinter import *
