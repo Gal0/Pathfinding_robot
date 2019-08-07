@@ -78,7 +78,6 @@ def SetUpCanvas():
     #__Set up Canvas
     global root
     root = Tk()
-    #root.geometry("500x400")
     global canvas
     canvas = Canvas(root, width=cWidth, height=cHeight)
     canvas.pack()  
@@ -222,10 +221,6 @@ def DStarSearch(robot):
 def Observe(robot): #receives sensordata and converts this information
     for i in range(DistSensor.distSensorAmount):
         dist = DistSensor.distSensors[i].GetDistance()
-        
-#        if dist > 200: #measurement maximal 200cm
-#            print("too far away")
-#            continue
 
         #assuming robot is positioned in the middle of a tile
         gridDist = math.floor(dist/tileSize) #rounded number of tiles the obsticle is away
@@ -367,9 +362,7 @@ def Move(robot):
     
    
 def Refresher():
-    print("REF")
     Observe(robot)      
-
     UpdateCanvas()
     
      if(len(robot.path) > 1 and robot.isMoving == False):
