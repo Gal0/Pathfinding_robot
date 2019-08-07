@@ -13,7 +13,7 @@ IODIRB = 0x01 #reigster for input-output direction of GPB
 OLATA = 0x14 #register for output (GPA)
 OLATB = 0x15 #register for output (GPB)
 
-stepDelay = 0.0025 #0.002
+stepDelay = 0.0025 #how much time there is between two steps
 compassMeasureDelay = 4 #the heading should be measured only every n'th step to decrease power consumption
 correctionSteps = 25#35 #How many correctionSteps should be tried
 rotTol = 1.5 #tolerance of rotation in degrees; (+-)
@@ -138,10 +138,8 @@ def rotateLeftC(stepNum, currHeading): #rotation includes correction. #currHeadi
     
     
     toDegree = currHeading + 90 #+90° because it is a left rotation #toDregree = to which value of degree the robot schould move next
-    if toDegree >= 360: toDegree -= 360
-     
-    rotationCorrection(toDegree)
-    
+    if toDegree >= 360: toDegree -= 360    
+    rotationCorrection(toDegree)  
     return toDegree
 
     
@@ -167,8 +165,6 @@ def rotationCorrection(toDegree):
         deltaHeading = heading - toDegree
         
         
-        
-        
         print("toDegree: ", toDegree)
         print("heading: ", heading)
         print("deltaheading: ", deltaHeading)
@@ -183,17 +179,13 @@ def rotationCorrection(toDegree):
         if abs(deltaHeading) < 180:
             if deltaHeading < 0:
                 rotateLeft(compassMeasureDelay)
-                #print("RL1")
             if deltaHeading > 0:
                 rotateRight(compassMeasureDelay)
-                #print("RR1")
         else:
             if deltaHeading < 0:
                 rotateRight(compassMeasureDelay)
-                #print("RR2")
             if deltaHeading > 0:
                 rotateLeft(compassMeasureDelay)
-                #print("RL2")
 
     bus.write_byte_data(DEVICE,OLATA,0x00)
     bus.write_byte_data(DEVICE,OLATB,0x00)
