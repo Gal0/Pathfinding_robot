@@ -1,3 +1,7 @@
+#A*-Algorithm repreats if obsticle is detected infront of the robot.
+#Date: 07.08.2019
+#Author: Robin Drescher
+
 from tkinter import *
 import math
 import time
@@ -8,7 +12,6 @@ import CalibratedComp
 
 #---CONSTANTS---
 #canvas dimensions
-#cWidth, cHeight = 900, 900
 pixelPerCm = 1.7
 #grid properties
 tileSize= 15#in cm
@@ -22,7 +25,6 @@ goalTileColor = "#29BC17"
 obsticleColor = "red"
 pathColor = "yellow"
 
-#pixelPerCm = cWidth/(tileSize*(xTiles))
 cWidth = xTiles*tileSize*pixelPerCm
 cHeight = yTiles*tileSize*pixelPerCm
 tilePixelSize = tileSize*pixelPerCm #size of one tile in pixel
@@ -30,8 +32,8 @@ tilePixelSize = tileSize*pixelPerCm #size of one tile in pixel
 tiles = [[None for y in range(yTiles)] for x in range(xTiles)]
 loadPrevMap = False #If True, the previous stored map will be loaded.
 
-deactUpdateFreeSpace = True #If this bool is set to true , the rbot won't remove an obsticle from his grid map, when he doesn't see it anymore
-mapUpdated = 0 #If Sensors find that an absticle has moved away, this  variable keeps track of it, so that the pathfinding is re-done #0: not updated, 1:updated necessary, 2: update done
+deactUpdateFreeSpace = True #If this bool is set to true , the robot won't remove an obsticle from his grid map, when he doesn't see it anymore
+mapUpdated = 0 #If sensors find that an absticle has moved away, this  variable keeps track of it, so that the pathfinding is re-done #0: not updated, 1:updated necessary, 2: update done
 
 class Tile:
     x, y = None, None #x/y grid-position; starting from 0
@@ -192,20 +194,12 @@ def ResetPathfinding():
 def Observe(robot): #receives sensordata and converts this information
     for i in range(DistSensor.distSensorAmount):
         dist = DistSensor.distSensors[i].GetDistance()
-        
-#        if dist > 200: #measurement maximal 200cm
-#            print("too far away")
-#            continue
 
         #assuming robot is positioned in the middle of a tile
         gridDist = math.floor(dist/tileSize) #rounded number of tiles the obsticle is away
     
-        #print(dist, gridDist, "Num of Sens", i)
-    
         if gridDist == 0:
-            #print("robot is too close to an obsticle")
             gridDist = 1
-            #continue
     
         trajectory = robot.orientation
     
@@ -218,7 +212,6 @@ def Observe(robot): #receives sensordata and converts this information
         
         if trajectory == 0: #if DistSensor is facing north            
             if robot.y - gridDist < 0:
-                #print("obsticle out of tilemap")
                 UpdateFreeSpace(robot.x, robot.y, robot.x, 0)
                 continue
             tiles[robot.x][robot.y-gridDist].obsticle = True
@@ -226,7 +219,6 @@ def Observe(robot): #receives sensordata and converts this information
             
         if trajectory == 1: #if DistSensor is facing east
             if robot.x + gridDist > xTiles-1:
-                #print("obsticle out of tilemap")
                 UpdateFreeSpace(robot.x, robot.y, xTiles-1, robot.y)
                 continue
             tiles[robot.x+gridDist][robot.y].obsticle = True
@@ -234,7 +226,6 @@ def Observe(robot): #receives sensordata and converts this information
             
         if trajectory == 2: #if DistSensor is facing south
             if robot.y + gridDist > yTiles-1:
-                #print("obsticle out of tilemap")
                 UpdateFreeSpace(robot.x, robot.y, robot.x, yTiles-1)
                 continue
             tiles[robot.x][robot.y+gridDist].obsticle = True
@@ -242,7 +233,6 @@ def Observe(robot): #receives sensordata and converts this information
             
         if trajectory == 3: #if DistSensor is facing west
             if robot.x - gridDist < 0:
-                #print("obsticle out of tilemap")
                 UpdateFreeSpace(robot.x, robot.y, 0, robot.y)
                 continue
             tiles[robot.x-gridDist][robot.y].obsticle = True
@@ -361,9 +351,7 @@ def Move(robot):
     
    
 def Refresher():
-    print("REF")
     Observe(robot)      
-
     UpdateCanvas(robot)
     
     if(len(robot.path) > 1 and robot.isMoving == False):
