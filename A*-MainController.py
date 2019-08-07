@@ -346,9 +346,7 @@ def Move(robot):
     robot.currentHeading = CalibratedComp.getAvHeading() #Update heading because it can change from from to place 
     robot.isMoving = False
     return
-    
-    
-    
+  
    
 def Refresher():
     Observe(robot)      
@@ -369,7 +367,6 @@ def Refresher():
         return
 
     Refresher()
-
 
 
 #-----------------MAIN-----------------
