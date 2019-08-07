@@ -1,7 +1,6 @@
 #Date: 07.08.2019
 #Author: Robin Drescher
 
-
 import RPi.GPIO as GPIO
 import time
  
