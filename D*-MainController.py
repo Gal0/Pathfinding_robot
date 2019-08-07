@@ -1,3 +1,6 @@
+#Date 27.07.2019
+#D*-Algorithm by Howie Choset (with variations)
+
 from tkinter import *
 import math
 import time
@@ -6,7 +9,6 @@ import MotorController
 
 #---CONSTANTS---
 #canvas dimensions
-#cWidth, cHeight = 900, 900
 pixelPerCm = 1.2
 blockedTileCost = 99999
 #grid properties
@@ -20,7 +22,6 @@ freeTileColor = "#B0DFE5"
 obsticleColor = "red"
 pathColor = "yellow"
 
-#pixelPerCm = cWidth/(tileSize*(xTiles))
 cWidth = xTiles*tileSize*pixelPerCm
 cHeight = yTiles*tileSize*pixelPerCm
 tilePixelSize = tileSize*pixelPerCm #size of one tile in pixel
