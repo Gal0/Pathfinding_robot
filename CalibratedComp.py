@@ -1,3 +1,7 @@
+#Date: 07.08.2019
+#Author: Bas Huizer (https://bitbucket.org/RoboBasics/robocar/src/32836c36a411f6b33d32af49b258785220bd3ead/Handy%20stuff/HMC5883L_calibrate_step_4.py?at=master)
+# (with variations)
+
 import RPi.GPIO as GPIO
 import smbus
 import time
@@ -44,8 +48,8 @@ def getHeading():
     write_byte(2, 0b00000000) # Continuous sampling
 
     scale = 0.92
-    x_offset = 77.4#64.5#77.4#76.5#47.5#74.5#GUT:43
-    y_offset = 142#154#142#151.5#132.5#130.5#GUT:92.5
+    x_offset = 77.4 #Values found by calibration
+    y_offset = 142
     
     x_out = (read_word_2c(3) - x_offset) * scale
     y_out = (read_word_2c(7) - y_offset) * scale
@@ -55,7 +59,7 @@ def getHeading():
     if (bearing < 0):
         bearing += 2 * math.pi
         
-    declination = -2.77#2.759#2.68
+    declination = -2.77
     bearing = math.degrees(bearing) + declination
     
     if bearing > 360:
@@ -66,16 +70,12 @@ def getHeading():
 def getAvHeading(amount): #doesn't improve the results significantly!
     measurements = [None for a in range(amount)]
     measurements[0] = getHeading()
-    #for i in range(amount):
-        #measurements[i] = getHeading()
-        #print(i, measurements[i])
-        #time.sleep(measureDelay)
+    
     for i in range(amount-1):
         time.sleep(measureDelay)
         for j in range(errorAtempts):
             measurements[i+1] = getHeading()
             if measurements[i+1] != measurements[i]:  #try to correct measuring error, detect it if the measurements are exactly the same, which is not expectable
-                #print(measurements[i+1])
                 break
             time.sleep(errorDelay)
             
@@ -86,7 +86,3 @@ def measure():
   for i in range(320):
      print(getHeading())
      time.sleep(0.6)
-     
-#measure()
-#print(getAvHeading())
-#print(getHeading())
