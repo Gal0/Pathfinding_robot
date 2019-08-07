@@ -20,8 +20,6 @@ class DistSens:
     GPIO_TRIG = None
     GPIO_ECHO = None
     distance = None #distance measured by this distance sensor
-    
-
         
     def GetDistance(self):
         self.CalcDistance()
@@ -71,15 +69,3 @@ for i in range(distSensorAmount):
     distSensors[i] = DistSens(triggerPins[i],echoPins[i])
 
     
-    
-#if __name__ == '__main__':
-#    try:
-#        while True:
-#            dist = distSensors[2].GetDistance()
-#           print ("Measured Distance = %.1f cm" % dist)
-#            time.sleep(0.5)
-# 
-        # Reset by pressing CTRL + C
-#    except KeyboardInterrupt:
-#        print("Measurement stopped by User")
-#        GPIO.cleanup()
