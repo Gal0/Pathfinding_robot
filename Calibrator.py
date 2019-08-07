@@ -1,3 +1,4 @@
+#Calibrates HMC5883L-Magnetometer
 #Date: 24.07.2019
 #Author: Bas Huizer (https://bitbucket.org/RoboBasics/robocar/src/32836c36a411f6b33d32af49b258785220bd3ead/Handy%20stuff/HMC5883L_calibrate_step_2.py?at=master)
 
