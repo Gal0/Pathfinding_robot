@@ -398,5 +398,3 @@ SetUpCanvas()
 AStarSearch(robot)
 Refresher()
 root.mainloop()
-
-
