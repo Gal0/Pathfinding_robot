@@ -62,10 +62,3 @@ class DistSens:
         self.GPIO_TRIG = trig
         self.GPIO_ECHO = echo
         self.Set()
- 
- 
- #>>--------------MAIN--------------<<
-for i in range(distSensorAmount):
-    distSensors[i] = DistSens(triggerPins[i],echoPins[i])
-
-    
