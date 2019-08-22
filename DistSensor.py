@@ -1,5 +1,5 @@
 #Date: 07.08.2019
-#Author: Robin Drescher
+#Author: Robin Drescher with help from https://tutorials-raspberrypi.com/raspberry-pi-ultrasonic-sensor-hc-sr04/
 
 import RPi.GPIO as GPIO
 import time
