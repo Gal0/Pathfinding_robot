@@ -1,5 +1,6 @@
 #Date: 07.08.2019
-#Author: Robin Drescher with help from https://tutorials-raspberrypi.de/gpios-mittels-i2c-port-expander-erweitern/ for the implementation of the port expander.
+#Author: Robin Drescher with help from https://tutorials-raspberrypi.de/gpios-mittels-i2c-port-expander-erweitern/ 
+#for the implementation of the port expander.
 
 import smbus
 import time
